@@ -14,7 +14,7 @@ def calculate_ranks_from_similarities(all_similarities, positive_relations):
     positive_relation_similarities = all_similarities[positive_relations]
     negative_relation_similarities = np.ma.array(all_similarities, mask=False)
     negative_relation_similarities.mask[positive_relations] = True
-    ranks = list((negative_relation_similarities > positive_relation_similarities[:, np.newaxis]).sum(axis=1) + 1)
+    ranks = [(negative_relation_similarities > positive_relation_similarities[:, np.newaxis]).sum() + 1]
     return ranks
 
 def calculate_ranks_from_distance(all_distances, positive_relations):

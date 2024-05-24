@@ -1,6 +1,6 @@
 {
     "name": "TaxoExpan",
-    "n_gpu": 1,
+    "n_gpu": 0,
 
     "arch": {
         "type": "TaxoExpan",
@@ -23,14 +23,14 @@
     "train_data_loader": {
         "type": "MaskedGraphDataLoader",
         "args":{
-            "data_path": "/datadrive/structure_expan/data/semeval-2016-task-14/wordnet_noun.fasttext_mode4.pickle.bin",
+            "data_path": "data/wordnet/wordnet_nouns.fasttext.pickle.bin",
             "sampling_mode": 1, 
             "batch_size": 64,
             "batch_type": "small_batch",
             "negative_size": 31,
             "expand_factor": 50, 
             "shuffle": true,
-            "num_workers": 20,
+            "num_workers": 12,
             "cache_refresh_time": 64,
             "normalize_embed": true
         }
@@ -38,14 +38,14 @@
     "validation_data_loader": {
         "type": "MaskedGraphDataLoader",
         "args":{
-            "data_path": "/datadrive/structure_expan/data/semeval-2016-task-14/wordnet_noun.fasttext_mode4.pickle.bin",
+            "data_path": "data/wordnet/wordnet_nouns.fasttext.pickle.bin",
             "sampling_mode": 0,
             "batch_size": 64,
             "batch_type": "small_batch",
             "negative_size": 256,
             "expand_factor": 50, 
             "shuffle": true,
-            "num_workers": 20,
+            "num_workers": 12,
             "cache_refresh_time": 100000000,
             "normalize_embed": true
         }
@@ -53,13 +53,13 @@
     "test_data_loader": {
         "type": "MaskedGraphDataLoader",
         "args":{
-            "data_path": "/datadrive/structure_expan/data/semeval-2016-task-14/wordnet_noun.fasttext_mode4.pickle.bin",
+            "data_path": "data/wordnet/wordnet_nouns.fasttext.pickle.bin",
             "sampling_mode": 0,
             "batch_size": 1,
             "batch_type": "large_batch",
             "expand_factor": 50, 
             "shuffle": true,
-            "num_workers": 20,
+            "num_workers": 12,
             "cache_refresh_time": 100000000,
             "normalize_embed": true
         }
@@ -86,9 +86,9 @@
         }
     },
     "trainer": {
-        "epochs": 100,
+        "epochs": 10,
 
-        "save_dir": "/datadrive/structure_expan/saved/",
+        "save_dir": "data/saved2",
         "save_period": 1,
         "verbosity": 2,
         

@@ -1,7 +1,6 @@
 import numpy as np
 import torch
 import torch.nn.functional as F
-from torchvision.utils import make_grid
 from base import BaseTrainer
 import dgl
 
@@ -48,7 +47,7 @@ class Trainer(BaseTrainer):
             h = bg.ndata.pop('x').to(self.device)
             
             self.optimizer.zero_grad()
-            prediction = self.model(bg, h, nf)
+            prediction = self.model(bg.to(self.device), h, nf)
             if self.is_infonce_training:
                 n_batches = label.sum().detach()
                 prediction = prediction.reshape(n_batches, -1)
@@ -110,7 +109,7 @@ class Trainer(BaseTrainer):
                 qf = batch_example[1].to(self.device)
                 label = batch_example[2].to(self.device)
                 h = bg.ndata.pop('x').to(self.device)
-                prediction = self.model(bg, h, qf)
+                prediction = self.model(bg.to(self.device), h, qf)
 
                 self.writer.set_step((epoch - 1) * len(self.valid_data_loader) + batch_idx, 'valid')
                 total_val_metrics += self._eval_metrics(prediction, label)

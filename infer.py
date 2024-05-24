@@ -2,6 +2,7 @@
 """
 import argparse
 import torch
+from matplotlib import pyplot as plt
 from tqdm import tqdm
 import data_loader.data_loaders as module_data
 import model.model as module_arch
@@ -35,7 +36,7 @@ def main(config, args_outer):
         row_sums = nf.sum(axis=1)
         nf = nf / row_sums[:, np.newaxis]
     kv = KeyedVectors(vector_size=nf.shape[1])
-    kv.add(vocab, nf)
+    kv.add_vectors(vocab, nf)
 
     # Load trained model and existing taxonomy
     logger = config.get_logger('test')
@@ -160,6 +161,7 @@ def main(config, args_outer):
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser(description='Testing structure expansion model with case study logging')
+    args.add_argument('-c', '--config-path', default=None, type=str)
     args.add_argument('-r', '--resume', default=None, type=str, help='path to latest model checkpoint (default: None)')
     args.add_argument('-t', '--taxon', default=None, type=str, help='path to new taxon list  (default: None)')
     args.add_argument('-d', '--device', default=None, type=str, help='indices of GPUs to enable (default: all)')

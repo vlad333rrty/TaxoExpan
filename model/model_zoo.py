@@ -92,7 +92,7 @@ class GATLayer(nn.Module):
         self.edge_softmax(g)
         # 3. compute the aggregated node features scaled by the dropped,
         # unnormalized attention values.
-        g.update_all(fn.src_mul_edge('ft', 'a_drop', 'ft'), fn.sum('ft', 'ft'))
+        g.update_all(fn.u_mul_e('ft', 'a_drop', 'ft'), fn.sum('ft', 'ft'))
         ret = g.ndata['ft']
         # 4. residual
         if self.residual:
