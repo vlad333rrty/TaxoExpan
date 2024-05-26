@@ -199,7 +199,8 @@ class MAGDataset(object):
             for line in fin:
                 line = line.strip()
                 if line:
-                    node_list.append(line)
+                    id = line.split('\t')[0]
+                    node_list.append(id)
         return node_list
 
 
@@ -226,7 +227,7 @@ class MaskedGraphDataset(Dataset):
         
         # add node feature vector
         self.kv = KeyedVectors(vector_size=self.node_features.shape[1])
-        self.kv.add([str(i) for i in range(len(self.vocab))], self.node_features.numpy())
+        self.kv.add_vectors([str(i) for i in range(len(self.vocab))], self.node_features.numpy())
 
         # add interested node list and subgraph
         if mode == "train":
@@ -372,7 +373,7 @@ class MaskedGraphDataset(Dataset):
                 random.shuffle(self.queue)
             max_try += 1
             if max_try > 10:  # corner cases, trim/expand negatives to the size
-                print(f"Alert in _get_exactly_k_negatives, query_node: {query_node}, current negative size: {len(negatives)}")
+                # print(f"Alert in _get_exactly_k_negatives, query_node: {query_node}, current negative size: {len(negatives)}")
                 if len(negatives) > negative_size:
                     negatives = negatives[:negative_size]
                 else:
